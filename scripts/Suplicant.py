@@ -14,10 +14,12 @@ class Suplicant(object):
 		with open(self.usersFile,'w') as f:
 			f.write(self.user+"|"+Suplicant.sha256(self.passwd))
 
-	def sendCredentials(self):
-		with open(self.usersFile,'w') as f:
-			f.write(self.user+"|"+Suplicant.sha256(self.passwd))
-
+	def sendCredentials(self,user="",passwd=""):
+		with open(self.requestFile,'w') as f:
+			if user=="" and passwd=="":
+				f.write(self.user+"|"+Suplicant.sha256(self.passwd))
+			else:
+				f.write(user+"|"+Suplicant.sha256(passwd))
 
 	@classmethod
 	def sha256(cls,msg):
@@ -28,7 +30,8 @@ if __name__ == '__main__':
 	sup=Suplicant("alan","gato123","users.txt","requestUsers.txt")
 	sup.signIn()
 	#Inicia autenticación por derivación
-	sup.sendCredentials()
+	#sup.sendCredentials()
+	sup.sendCredentials("noExiste","hola123")
 
 
 

@@ -1,6 +1,7 @@
+import sys
 import hmac
-from hashlib import sha256, md5
 from random import randint
+from hashlib import sha256
 from CipherAES import encrypt,decrypt
 
 class Authenticator(object):
@@ -22,9 +23,16 @@ class Authenticator(object):
 			f.write(supData[0]+"|"+self.hmacBuiltIn("",supData[0]+supData[1])+"\n")
 			
 	def authenticateSup(self):
-		with open(self.usersFile,'r') as uF, open(self.requestFile,'r') as rF:
-			return f.read().split("|")
-	
+		with open(self.usersFile,'r') as uF, open(self.requestFile,'r+') as rF:
+			users=uF.readlines()
+			supData=rF.read()
+			#requestFile.seek(0)
+			#requestFile.truncate()
+		for user in users:
+			if user==supData:
+				return supData
+		return False
+
 	def hmacBuiltIn(self,key,msg):
 		"""Método usando el módulo de hmac"""
 		if key=="":
@@ -35,16 +43,15 @@ class Authenticator(object):
 	def hmacRFC(self,user,hashedPass,nonce,k1,k2,blocksize=32):
 		"""Método que genera el código mac usando el RFC 2014"""
 		if len(k1) > blocksize:
-			k1 = md5(k1).digest()
+			k1=sha256(k1).digest()
 		k1=k1.encode('utf-8')+bytearray(blocksize-len(k1))
 		if len(k2) > blocksize:
-			k2=md5(key).digest()
+			k2=sha256(key).digest()
 		k2=k2.encode('utf-8')+bytearray(blocksize-len(k2))
 		#print("Longitud de k1: ",len(k1))
 		#print("Longitud de k2: ",len(k2))
-		return encrypt(md5(k1+encrypt(k2,user+hashedPass)).hexdigest(),nonce)
+		return encrypt(sha256(k1+encrypt(k2,user+hashedPass)).hexdigest(),nonce)
 		
-
 	@classmethod
 	def makeNonce(cls):
 		"""Métoo de clase para generar un número pseudoaleatorio."""
@@ -52,7 +59,16 @@ class Authenticator(object):
 
 if __name__ == '__main__':
 	aut=Authenticator("users.txt","authenticatedUsers.txt","requestUsers.txt")
+	#2
 	supCredentials=aut.readData()
+	#3
 	aut.registerSup(supCredentials)
 	#Inicia autenticacion por derivacion
-
+	#4
+	supData=aut.authenticateSup()
+	if(supData):
+		print("Usuario Auntenticado: ",supData.split("|")[0])
+	else:
+		print("Usuario desconocido, finalizando proceso")
+		sys.exit()
+	
