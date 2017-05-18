@@ -2,10 +2,11 @@ import hashlib
 
 class Suplicant(object):
 	"""Clase Suplicant"""
-	def __init__(self, user,passwd,usersFile):
+	def __init__(self, user,passwd,usersFile,requestFile):
 		self.user=user
 		self.passwd=passwd
 		self.usersFile=usersFile
+		self.requestFile=requestFile
 
 
 	def signIn(self):
@@ -14,7 +15,8 @@ class Suplicant(object):
 			f.write(self.user+"|"+Suplicant.sha256(self.passwd))
 
 	def sendCredentials(self):
-		pass
+		with open(self.usersFile,'w') as f:
+			f.write(self.user+"|"+Suplicant.sha256(self.passwd))
 
 
 	@classmethod
@@ -23,7 +25,7 @@ class Suplicant(object):
 		return hashlib.sha256(msg.encode('utf-8')).hexdigest()
 
 if __name__ == '__main__':
-	sup=Suplicant("rafa","diez123","users.txt")
+	sup=Suplicant("alan","gato123","users.txt","requestUsers.txt")
 	sup.signIn()
 	#Inicia autenticación por derivación
 	sup.sendCredentials()
