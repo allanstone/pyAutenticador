@@ -27,4 +27,4 @@ usando como hash SHA-256 y algoritmo de cifrado simétrico Rijndael.
 
 * **NOTA:** Asegurarse de tener los [compiladores](http://www.microsoft.com/en-us/download/details.aspx?id=44266) para C++ si se ejecuta en Windows 
 
-* **NOTA:** Pycrypto aun no es compativle con la versión más actual de python (3.6.1)
+* **NOTA:** Pycrypto aún no es compatible con la versión más actual de python (3.6.1)
