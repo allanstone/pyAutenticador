@@ -2,6 +2,8 @@
 __pycache__/
 *.py[cod]
 *$py.class
+#Si se desean omitir los txt que genera descomentar:
+*.txt
 
 # C extensions
 *.so

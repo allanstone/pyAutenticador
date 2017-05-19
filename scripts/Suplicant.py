@@ -31,7 +31,8 @@ if __name__ == '__main__':
 	sup.signIn()
 	#Inicia autenticación por derivación
 	#sup.sendCredentials()
-	sup.sendCredentials("noExiste","hola123")
+	#un suplicante que no se haya registrado no va a poder continuar del paso 4
+	#sup.sendCredentials("noExiste","hola123")
 
 
 

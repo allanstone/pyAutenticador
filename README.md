@@ -1,18 +1,19 @@
-# Cajero ATM (sockets TCP y cifrado AES)
+# Autenticador por dos factores 
 
-Proyecto Final de Arquitecturas Cliente Servidor de la Facultad de Ingeniería UNAM
+Proyecto Final de la materia de Criptografía de la Facultad de Ingeniería UNAM
+(hash SHA-256 y algoritmo de cifrado simétrico Rijndael)
 
 ## SCRIPTS
-* Para correr el servidor desde linea de comandos se puede realizar de la siguiente forma:
+* Para correr el Autenticador desde linea de comandos se puede realizar de la siguiente forma:
 
     ```
-    $ python servidorATM.py [ip] [puerto] [llave]
+    $ python Authenticator.py
     ```
 
-* Para correr el cliente desde linea de comandos se puede realizar de la siguiente forma:
+* Para correr el Suplicante desde linea de comandos se puede realizar de la siguiente forma:
 
     ```
-    $ python clienteATM.py [ip] [puerto] [llave]
+    $ python Suplicant.py
     ```
 * Para probar los códigos es necesario el modulo **pycrypto** instalado, se puede
      instalar de manera sencilla con la siguiente línea:
@@ -25,3 +26,5 @@ Proyecto Final de Arquitecturas Cliente Servidor de la Facultad de Ingeniería U
 * Instalación para Python 3.5 mediante [wheels](https://github.com/sfbahr/PyCrypto-Wheels)
 
 * **NOTA:** Asegurarse de tener los [compiladores](http://www.microsoft.com/en-us/download/details.aspx?id=44266) para C++ si se ejecuta en Windows 
+
+* **NOTA:** Pycrypto aun no es compativle con la versión más actual de python (3.6.1)
