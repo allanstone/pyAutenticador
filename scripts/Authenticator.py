@@ -17,10 +17,14 @@ class Authenticator(object):
 		with open(self.usersFile,'r') as f:
 			return f.read().split("|")
 
-	def registerSup(self,supData):
+	def registerSup(self,supData,hmacMethod="rfc"):
 		with open(self.authFile,'a') as f:
-			#f.write(supData[0]+"|"+str(self.hmacRFC(supData[0],supData[1],Authenticator.makeNonce(),self.k1,self.k2))+"\n")
-			f.write(supData[0]+"|"+self.hmacBuiltIn("",supData[0]+supData[1])+"\n")
+			if hmacMethod="rfc":
+				x=supData[0]+"|"+str(self.hmacRFC(supData[0],supData[1],Authenticator.makeNonce(),self.k1,self.k2))+"\n"
+			else:
+				x=supData[0]+"|"+self.hmacBuiltIn("",supData[0]+supData[1])+"\n"
+			f.write(x)
+			return x
 			
 	def authenticateSup(self):
 		with open(self.usersFile,'r') as uF, open(self.requestFile,'r+') as rF:
@@ -32,6 +36,11 @@ class Authenticator(object):
 			if user==supData:
 				return supData
 		return False
+
+	def sendHmac(self,supData,x):
+		with open(supData[0]+".txt","w") as f:
+			f.write("".join(supData)+"|"+x)
+
 
 	def hmacBuiltIn(self,key,msg):
 		"""Método usando el módulo de hmac"""
@@ -62,7 +71,8 @@ if __name__ == '__main__':
 	#2
 	supCredentials=aut.readData()
 	#3
-	aut.registerSup(supCredentials)
+	x=aut.registerSup(supCredentials)
+	aut.sendHmac(supData,x)
 	#Inicia autenticacion por derivacion
 	#4
 	supData=aut.authenticateSup()
@@ -71,4 +81,5 @@ if __name__ == '__main__':
 	else:
 		print("Usuario desconocido, finalizando proceso")
 		sys.exit()
+	#5
 	
