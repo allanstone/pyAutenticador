@@ -1,7 +1,7 @@
 # Autenticador por dos factores 
 
-Proyecto Final de la materia de Criptografía de la Facultad de Ingeniería UNAM
-(hash SHA-256 y algoritmo de cifrado simétrico Rijndael)
+## Proyecto Final de la materia de Criptografía de la Facultad de Ingeniería UNAM
+usando como hash SHA-256 y algoritmo de cifrado simétrico Rijndael.
 
 ## SCRIPTS
 * Para correr el Autenticador desde linea de comandos se puede realizar de la siguiente forma:
