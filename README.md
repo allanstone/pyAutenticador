@@ -1,6 +1,6 @@
 # Autenticador por dos factores 
 
-## Proyecto Final de la materia de Criptografía de la Facultad de Ingeniería UNAM
+Proyecto Final de la materia de Criptografía de la Facultad de Ingeniería UNAM
 usando como hash SHA-256 y algoritmo de cifrado simétrico Rijndael.
 
 ## SCRIPTS
